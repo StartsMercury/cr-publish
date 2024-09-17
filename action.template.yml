@@ -1,8 +1,8 @@
 # TODO: Remove deprecated inputs in v4.0
 
-name: mc-publish
-description: Your one-stop GitHub Action for seamless Minecraft project publication across various platforms.
-author: Kir-Antipov
+name: cr-publish
+description: Your one-stop GitHub Action for seamless Cosmic Reach project publication across various platforms.
+author: StartsMercury
 branding:
   color: purple
   icon: box
@@ -17,19 +17,19 @@ types:
 
 groups:
   input:
-    modrinth:
-      type: ModrinthUploadRequest
-      description: Options used to publish Minecraft projects to Modrinth.
+    crmm:
+      type: CrmmUploadRequest
+      description: Options used to publish Cosmic Reach projects to CRMM.
     curseforge:
       type: CurseForgeUploadRequest
-      description: Options used to publish Minecraft projects to CurseForge.
+      description: Options used to publish Cosmic Reach projects to CurseForge.
     github:
       type: GitHubUploadRequest
-      description: Options used to publish Minecraft projects to GitHub.
+      description: Options used to publish Cosmic Reach projects to GitHub.
   output:
-    modrinth:
-      type: ModrinthUploadReport
-      description: Report detailing the status of the project published on Modrinth.
+    crmm:
+      type: CrmmUploadReport
+      description: Report detailing the status of the project published on CRMM.
     curseforge:
       type: CurseForgeUploadReport
       description: Report detailing the status of the project published on CurseForge.
@@ -38,19 +38,19 @@ groups:
       description: Report detailing the status of the project published on GitHub.
 
 inputs:
-  modrinth-id:
+  crmm-id:
     type: string
-    description: The unique identifier of your Modrinth project.
-  modrinth-featured:
+    description: The unique identifier of your CRMM project.
+  crmm-featured:
     type: boolean
-    description: Set to true to feature the version on Modrinth; false otherwise.
-  modrinth-unfeature-mode:
-    type: platforms.modrinth.ModrinthUnfeatureMode
-    description: Sets the behavior for unfeaturing older Modrinth versions.
+    description: Set to true to feature the version on CRMM; false otherwise.
+  crmm-unfeature-mode:
+    type: platforms.crmm.CrmmUnfeatureMode
+    description: Sets the behavior for unfeaturing older CRMM versions.
     default: subset
-  modrinth-token:
+  crmm-token:
     type: utils.security.SecureString
-    description: Your Modrinth API token.
+    description: Your CRMM API token.
 
   curseforge-id:
     type: string
@@ -121,7 +121,7 @@ inputs:
     description: An array of supported mod loaders.
   game-versions:
     type: string[]
-    description: An array of supported Minecraft versions.
+    description: An array of supported Cosmic Reach versions.
   dependencies:
     type: dependencies.Dependency[]
     description: An array of dependencies required by your project.
@@ -152,18 +152,18 @@ inputs:
     default: fail
 
 outputs:
-  modrinth-id:
+  crmm-id:
     type: string
-    description: The unique identifier of your Modrinth project.
-  modrinth-version:
+    description: The unique identifier of your CRMM project.
+  crmm-version:
     type: string
-    description: The unique identifier of the version published on Modrinth by this action.
-  modrinth-url:
+    description: The unique identifier of the version published on CRMM by this action.
+  crmm-url:
     type: string
-    description: The URL directing to the newly published version on Modrinth.
-  modrinth-files:
+    description: The URL directing to the newly published version on CRMM.
+  crmm-files:
     type: platforms.UploadedFile[]
-    description: Array of objects, each containing details about the files published for the new version on Modrinth, such as file `name`, `id`, and download `url`.
+    description: Array of objects, each containing details about the files published for the new version on CRMM, such as file `name`, `id`, and download `url`.
 
   curseforge-id:
     type: number

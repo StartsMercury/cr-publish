@@ -58,9 +58,9 @@ describe("QuiltMetadata", () => {
     });
 
     describe("gameName", () => {
-        test("always returns 'minecraft'", () => {
-            expect(QuiltMetadata.from({} as RawQuiltMetadata).gameName).toBe("minecraft");
-            expect(QuiltMetadata.from(RAW_METADATA).gameName).toBe("minecraft");
+        test("always returns 'cosmic-reach'", () => {
+            expect(QuiltMetadata.from({} as RawQuiltMetadata).gameName).toBe("cosmic-reach");
+            expect(QuiltMetadata.from(RAW_METADATA).gameName).toBe("cosmic-reach");
         });
     });
 
@@ -71,13 +71,13 @@ describe("QuiltMetadata", () => {
             expect(metadata.gameVersions).toEqual([]);
         });
 
-        test("returns the same value as the 'minecraft' dependency", () => {
-            const metadata = QuiltMetadata.from({ quilt_loader: { depends: [{ id: "minecraft", versions: "1.16.5" }] } } as RawQuiltMetadata);
+        test("returns the same value as the 'cosmic-reach' dependency", () => {
+            const metadata = QuiltMetadata.from({ quilt_loader: { depends: [{ id: "cosmic-reach", versions: "1.16.5" }] } } as RawQuiltMetadata);
 
             expect(metadata.gameVersions).toEqual(["1.16.5"]);
         });
 
-        test("returns the same values as the 'minecraft' dependency", () => {
+        test("returns the same values as the 'cosmic-reach' dependency", () => {
             const metadata = QuiltMetadata.from(RAW_METADATA);
 
             expect(metadata.gameVersions).toEqual(["1.17", "1.17.1"]);
@@ -125,13 +125,13 @@ describe("QuiltMetadata", () => {
             }
         });
 
-        test("special dependencies ('quilt_loader', 'minecraft', 'java') are ignored by default", () => {
+        test("special dependencies ('quilt_loader', 'cosmic-reach', 'java') are ignored by default", () => {
             const metadata = QuiltMetadata.from(RAW_METADATA);
 
             const dependencies = metadata.dependencies;
 
             expect(dependencies.find(x => x.id === "quilt_loader")?.isIgnored()).toBe(true);
-            expect(dependencies.find(x => x.id === "minecraft")?.isIgnored()).toBe(true);
+            expect(dependencies.find(x => x.id === "cosmic-reach")?.isIgnored()).toBe(true);
             expect(dependencies.find(x => x.id === "java")?.isIgnored()).toBe(true);
         });
 
@@ -155,7 +155,7 @@ describe("QuiltMetadata", () => {
             expect(dependencies).toHaveLength(9);
             expect(dependencies.find(x => x.id === "quilt_loader")).toMatchObject({ versions: [">=0.11.3"], type: DependencyType.REQUIRED });
             expect(dependencies.find(x => x.id === "quilted_fabric_api")).toMatchObject({ versions: [">=0.40.0"], type: DependencyType.REQUIRED });
-            expect(dependencies.find(x => x.id === "minecraft")).toMatchObject({ versions: ["1.17", "1.17.1"], type: DependencyType.REQUIRED });
+            expect(dependencies.find(x => x.id === "cosmic-reach")).toMatchObject({ versions: ["1.17", "1.17.1"], type: DependencyType.REQUIRED });
             expect(dependencies.find(x => x.id === "java")).toMatchObject({ versions: [">=16"], type: DependencyType.REQUIRED });
             expect(dependencies.find(x => x.id === "recommended-mod")).toMatchObject({ versions: ["0.2.0"], type: DependencyType.RECOMMENDED });
             expect(dependencies.find(x => x.id === "included-mod")).toMatchObject({ versions: ["*"], type: DependencyType.EMBEDDED });
@@ -164,13 +164,13 @@ describe("QuiltMetadata", () => {
             expect(dependencies.find(x => x.id === "breaking-mod")).toMatchObject({ versions: ["*"], type: DependencyType.INCOMPATIBLE });
 
             const merged = dependencies.find(x => x.id === "recommended-mod");
-            expect(merged.getProjectId(PlatformType.MODRINTH)).toBe("AAAA");
+            expect(merged.getProjectId(PlatformType.CRMM)).toBe("AAAA");
             expect(merged.getProjectId(PlatformType.CURSEFORGE)).toBe("42");
             expect(merged.getProjectId(PlatformType.GITHUB)).toBe("v0.2.0");
             expect(merged.isIgnored()).toBe(true);
 
             const withMetadata = dependencies.find(x => x.id === "suggested-mod");
-            expect(withMetadata.getProjectId(PlatformType.MODRINTH)).toBe("BBBB");
+            expect(withMetadata.getProjectId(PlatformType.CRMM)).toBe("BBBB");
             expect(withMetadata.getProjectId(PlatformType.CURSEFORGE)).toBe("43");
             expect(withMetadata.getProjectId(PlatformType.GITHUB)).toBe("v0.3.0");
             expect(withMetadata.isIgnored()).toBe(false);
@@ -212,9 +212,9 @@ describe("QuiltMetadata", () => {
         test("returns the same value as one specified in the custom payload", () => {
             const metadata = QuiltMetadata.from(RAW_METADATA);
 
-            expect(metadata.getProjectId(PlatformType.MODRINTH)).toBe("AANobbMI");
+            expect(metadata.getProjectId(PlatformType.CRMM)).toBe("AANobbMI");
             expect(metadata.getProjectId(PlatformType.CURSEFORGE)).toBe("394468");
-            expect(metadata.getProjectId(PlatformType.GITHUB)).toBe("mc1.18-0.4.0-alpha5");
+            expect(metadata.getProjectId(PlatformType.GITHUB)).toBe("cr1.18-0.4.0-alpha5");
         });
     });
 });

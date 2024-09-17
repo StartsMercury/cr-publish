@@ -152,9 +152,9 @@ export interface RawQuiltMetadata {
     access_widener?: string | string[];
 
     /**
-     * Contains flags and options related to Minecraft specifically.
+     * Contains flags and options related to Cosmic Reach specifically.
      */
-    minecraft?: {
+    cosmic_reach?: {
         /**
          * Defines the environment(s) that the mod should be loaded on.
          */

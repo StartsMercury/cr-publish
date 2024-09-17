@@ -6,7 +6,7 @@ import { CurseForgeGameVersionType } from "./curseforge-game-version-type";
  */
 export interface CurseForgeGameVersionMap {
     /**
-     * An array of game versions for Minecraft.
+     * An array of game versions for Cosmic Reach.
      */
     game_versions: CurseForgeGameVersion[];
 
@@ -46,7 +46,7 @@ export interface CurseForgeGameVersionMap {
  */
 export function createCurseForgeGameVersionMap(versions: CurseForgeGameVersion[], types: CurseForgeGameVersionType[]): CurseForgeGameVersionMap {
     return {
-        game_versions: filterGameVersionsByTypeName(versions, types, "minecraft"),
+        game_versions: filterGameVersionsByTypeName(versions, types, "cosmic-reach"),
         game_versions_for_plugins: filterGameVersionsByTypeName(versions, types, "bukkit"),
         game_versions_for_addons: filterGameVersionsByTypeName(versions, types, "addon"),
         loaders: filterGameVersionsByTypeName(versions, types, "modloader"),

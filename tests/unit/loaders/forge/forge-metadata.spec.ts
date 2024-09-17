@@ -48,8 +48,8 @@ describe("ForgeMetadata", () => {
         test("returns 'forge' by default", () => {
             const rawWithoutLoadersField = {
                 ...RAW_METADATA,
-                "mc-publish": {
-                    ...RAW_METADATA["mc-publish"],
+                "cr-publish": {
+                    ...RAW_METADATA["cr-publish"],
                     loaders: undefined,
                 },
             };
@@ -67,9 +67,9 @@ describe("ForgeMetadata", () => {
     });
 
     describe("gameName", () => {
-        test("always returns 'minecraft'", () => {
-            expect(ForgeMetadata.from({} as RawForgeMetadata).gameName).toBe("minecraft");
-            expect(ForgeMetadata.from(RAW_METADATA).gameName).toBe("minecraft");
+        test("always returns 'cosmic-reach'", () => {
+            expect(ForgeMetadata.from({} as RawForgeMetadata).gameName).toBe("cosmic-reach");
+            expect(ForgeMetadata.from(RAW_METADATA).gameName).toBe("cosmic-reach");
         });
     });
 
@@ -80,13 +80,13 @@ describe("ForgeMetadata", () => {
             expect(metadata.gameVersions).toEqual([]);
         });
 
-        test("returns the same value as the 'minecraft' dependency", () => {
-            const metadata = ForgeMetadata.from({ dependencies: { "example-mod": [{ modId: "minecraft", versionRange: "[1.16.5,)" }] } } as unknown as RawForgeMetadata);
+        test("returns the same value as the 'cosmic-reach' dependency", () => {
+            const metadata = ForgeMetadata.from({ dependencies: { "example-mod": [{ modId: "cosmic-reach", versionRange: "[1.16.5,)" }] } } as unknown as RawForgeMetadata);
 
             expect(metadata.gameVersions).toEqual(["[1.16.5,)"]);
         });
 
-        test("returns the same values as the 'minecraft' dependency", () => {
+        test("returns the same values as the 'cosmic-reach' dependency", () => {
             const metadata = ForgeMetadata.from(RAW_METADATA);
 
             expect(metadata.gameVersions).toEqual(["[1.17, 1.18)"]);
@@ -122,13 +122,13 @@ describe("ForgeMetadata", () => {
             }
         });
 
-        test("special dependencies ('forge', 'minecraft', 'java') are ignored by default", () => {
+        test("special dependencies ('forge', 'cosmic-reach', 'java') are ignored by default", () => {
             const metadata = ForgeMetadata.from(RAW_METADATA);
 
             const dependencies = metadata.dependencies;
 
             expect(dependencies.find(x => x.id === "forge")?.isIgnored()).toBe(true);
-            expect(dependencies.find(x => x.id === "minecraft")?.isIgnored()).toBe(true);
+            expect(dependencies.find(x => x.id === "cosmic-reach")?.isIgnored()).toBe(true);
             expect(dependencies.find(x => x.id === "java")?.isIgnored()).toBe(true);
         });
 
@@ -150,7 +150,7 @@ describe("ForgeMetadata", () => {
 
             expect(dependencies).toHaveLength(8);
             expect(dependencies.find(x => x.id === "forge")).toMatchObject({ versions: ["[34,)"], type: DependencyType.REQUIRED });
-            expect(dependencies.find(x => x.id === "minecraft")).toMatchObject({ versions: ["[1.17, 1.18)"], type: DependencyType.REQUIRED });
+            expect(dependencies.find(x => x.id === "cosmic-reach")).toMatchObject({ versions: ["[1.17, 1.18)"], type: DependencyType.REQUIRED });
             expect(dependencies.find(x => x.id === "java")).toMatchObject({ versions: ["[16,)"], type: DependencyType.REQUIRED });
             expect(dependencies.find(x => x.id === "recommended-mod")).toMatchObject({ versions: ["0.2.0"], type: DependencyType.RECOMMENDED });
             expect(dependencies.find(x => x.id === "included-mod")).toMatchObject({ versions: ["*"], type: DependencyType.EMBEDDED });
@@ -159,13 +159,13 @@ describe("ForgeMetadata", () => {
             expect(dependencies.find(x => x.id === "breaking-mod")).toMatchObject({ versions: ["*"], type: DependencyType.INCOMPATIBLE });
 
             const merged = dependencies.find(x => x.id === "recommended-mod");
-            expect(merged.getProjectId(PlatformType.MODRINTH)).toBe("AAAA");
+            expect(merged.getProjectId(PlatformType.CRMM)).toBe("AAAA");
             expect(merged.getProjectId(PlatformType.CURSEFORGE)).toBe("42");
             expect(merged.getProjectId(PlatformType.GITHUB)).toBe("v0.2.0");
             expect(merged.isIgnored()).toBe(true);
 
             const withMetadata = dependencies.find(x => x.id === "suggested-mod");
-            expect(withMetadata.getProjectId(PlatformType.MODRINTH)).toBe("BBBB");
+            expect(withMetadata.getProjectId(PlatformType.CRMM)).toBe("BBBB");
             expect(withMetadata.getProjectId(PlatformType.CURSEFORGE)).toBe("43");
             expect(withMetadata.getProjectId(PlatformType.GITHUB)).toBe("v0.3.0");
             expect(withMetadata.isIgnored()).toBe(false);
@@ -221,9 +221,9 @@ describe("ForgeMetadata", () => {
         test("returns the same value as one specified in the custom payload", () => {
             const metadata = ForgeMetadata.from(RAW_METADATA);
 
-            expect(metadata.getProjectId(PlatformType.MODRINTH)).toBe("AANobbMI");
+            expect(metadata.getProjectId(PlatformType.CRMM)).toBe("AANobbMI");
             expect(metadata.getProjectId(PlatformType.CURSEFORGE)).toBe("394468");
-            expect(metadata.getProjectId(PlatformType.GITHUB)).toBe("mc1.18-0.4.0-alpha5");
+            expect(metadata.getProjectId(PlatformType.GITHUB)).toBe("cr1.18-0.4.0-alpha5");
         });
     });
 });

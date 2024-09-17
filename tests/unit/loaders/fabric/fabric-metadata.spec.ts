@@ -58,9 +58,9 @@ describe("FabricMetadata", () => {
     });
 
     describe("gameName", () => {
-        test("always returns 'minecraft'", () => {
-            expect(FabricMetadata.from({} as RawFabricMetadata).gameName).toBe("minecraft");
-            expect(FabricMetadata.from(RAW_METADATA).gameName).toBe("minecraft");
+        test("always returns 'cosmic-reach'", () => {
+            expect(FabricMetadata.from({} as RawFabricMetadata).gameName).toBe("cosmic-reach");
+            expect(FabricMetadata.from(RAW_METADATA).gameName).toBe("cosmic-reach");
         });
     });
 
@@ -71,13 +71,13 @@ describe("FabricMetadata", () => {
             expect(metadata.gameVersions).toEqual([]);
         });
 
-        test("returns the same value as the 'minecraft' dependency", () => {
-            const metadata = FabricMetadata.from({ recommends: { minecraft: "1.16.5" } } as unknown as RawFabricMetadata);
+        test("returns the same value as the 'cosmic-reach' dependency", () => {
+            const metadata = FabricMetadata.from({ recommends: { cosmic-reach: "1.16.5" } } as unknown as RawFabricMetadata);
 
             expect(metadata.gameVersions).toEqual(["1.16.5"]);
         });
 
-        test("returns the same values as the 'minecraft' dependency", () => {
+        test("returns the same values as the 'cosmic-reach' dependency", () => {
             const metadata = FabricMetadata.from(RAW_METADATA);
 
             expect(metadata.gameVersions).toEqual(["1.17", "1.17.1"]);
@@ -124,13 +124,13 @@ describe("FabricMetadata", () => {
             }
         });
 
-        test("special dependencies ('fabricloader', 'minecraft', 'java') are ignored by default", () => {
+        test("special dependencies ('fabricloader', 'cosmic-reach', 'java') are ignored by default", () => {
             const metadata = FabricMetadata.from(RAW_METADATA);
 
             const dependencies = metadata.dependencies;
 
             expect(dependencies.find(x => x.id === "fabricloader")?.isIgnored()).toBe(true);
-            expect(dependencies.find(x => x.id === "minecraft")?.isIgnored()).toBe(true);
+            expect(dependencies.find(x => x.id === "cosmic-reach")?.isIgnored()).toBe(true);
             expect(dependencies.find(x => x.id === "java")?.isIgnored()).toBe(true);
         });
 
@@ -154,7 +154,7 @@ describe("FabricMetadata", () => {
             expect(dependencies).toHaveLength(9);
             expect(dependencies.find(x => x.id === "fabricloader")).toMatchObject({ versions: [">=0.11.3"], type: DependencyType.REQUIRED });
             expect(dependencies.find(x => x.id === "fabric")).toMatchObject({ versions: [">=0.40.0"], type: DependencyType.REQUIRED });
-            expect(dependencies.find(x => x.id === "minecraft")).toMatchObject({ versions: ["1.17", "1.17.1"], type: DependencyType.REQUIRED });
+            expect(dependencies.find(x => x.id === "cosmic-reach")).toMatchObject({ versions: ["1.17", "1.17.1"], type: DependencyType.REQUIRED });
             expect(dependencies.find(x => x.id === "java")).toMatchObject({ versions: [">=16"], type: DependencyType.REQUIRED });
             expect(dependencies.find(x => x.id === "recommended-mod")).toMatchObject({ versions: ["0.2.0"], type: DependencyType.RECOMMENDED });
             expect(dependencies.find(x => x.id === "included-mod")).toMatchObject({ versions: ["*"], type: DependencyType.EMBEDDED });
@@ -163,7 +163,7 @@ describe("FabricMetadata", () => {
             expect(dependencies.find(x => x.id === "breaking-mod")).toMatchObject({ versions: ["*"], type: DependencyType.INCOMPATIBLE });
 
             const merged = dependencies.find(x => x.id === "recommended-mod");
-            expect(merged.getProjectId(PlatformType.MODRINTH)).toBe("AAAA");
+            expect(merged.getProjectId(PlatformType.CRMM)).toBe("AAAA");
             expect(merged.getProjectId(PlatformType.CURSEFORGE)).toBe("42");
             expect(merged.getProjectId(PlatformType.GITHUB)).toBe("v0.2.0");
             expect(merged.isIgnored()).toBe(true);
@@ -204,9 +204,9 @@ describe("FabricMetadata", () => {
         test("returns the same value as one specified in the custom payload", () => {
             const metadata = FabricMetadata.from(RAW_METADATA);
 
-            expect(metadata.getProjectId(PlatformType.MODRINTH)).toBe("AANobbMI");
+            expect(metadata.getProjectId(PlatformType.CRMM)).toBe("AANobbMI");
             expect(metadata.getProjectId(PlatformType.CURSEFORGE)).toBe("394468");
-            expect(metadata.getProjectId(PlatformType.GITHUB)).toBe("mc1.18-0.4.0-alpha5");
+            expect(metadata.getProjectId(PlatformType.GITHUB)).toBe("cr1.18-0.4.0-alpha5");
         });
     });
 });

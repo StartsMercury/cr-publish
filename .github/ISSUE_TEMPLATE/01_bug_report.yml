@@ -32,7 +32,7 @@ body:
     id: version
     attributes:
       label: Version
-      description: Specify the version of mc-publish you are currently using.
+      description: Specify the version of cr-publish you are currently using.
       placeholder: |
         Please make sure to upgrade to the latest release before opening an issue.
     validations:
@@ -42,7 +42,7 @@ body:
     id: environment
     attributes:
       label: Environment
-      description: Specify the environment where you are using mc-publish.
+      description: Specify the environment where you are using cr-publish.
       multiple: false
       default: 0
       options:
@@ -72,11 +72,11 @@ body:
             steps:
               # Build artifacts...
 
-              - name: Publish assets to GitHub, Modrinth, and CurseForge
-                uses: Kir-Antipov/mc-publish@v4.0
+              - name: Publish assets to GitHub, CRMM, and CurseForge
+                uses: StartsMercury/cr-publish@v4.0
                 with:
                   name: ""
-                  modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+                  crmm-token: ${{ secrets.CRMM_TOKEN }}
                   curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
                   github-token: ${{ secrets.GITHUB_TOKEN }}
       render: yml
@@ -89,18 +89,18 @@ body:
       label: Logs
       description: Copy and paste the relevant logs, if applicable.
       placeholder: |
-        Run Kir-Antipov/mc-publish@v4.0
+        Run StartsMercury/cr-publish@v4.0
         with:
-          modrinth-id: AAAAAAAA
-          modrinth-token: ***
+          crmm-id: AAAAAAAA
+          crmm-token: ***
           curseforge-id: 42
           curseforge-token: ***
           files: build/libs/*.jar
 
         📤 Uploading assets to CurseForge
         ✅ Successfully published assets to CurseForge in 50000 ms
-        📤 Uploading assets to Modrinth
-        Error: Modrinth project "AAAAAAAA" was not found.
+        📤 Uploading assets to CRMM
+        Error: CRMM project "AAAAAAAA" was not found.
       render: sh
     validations:
       required: false

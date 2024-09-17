@@ -8,28 +8,28 @@
 # action.template.yml file instead. This will ensure that your changes are #
 #              properly reflected in the auto-generated file.              #
 # ######################################################################## #
-name: mc-publish
-description: Your one-stop GitHub Action for seamless Minecraft project
+name: cr-publish
+description: Your one-stop GitHub Action for seamless Cosmic Reach project
   publication across various platforms.
-author: Kir-Antipov
+author: StartsMercury
 branding:
   color: purple
   icon: box
 inputs:
-  modrinth-id:
-    description: The unique identifier of your Modrinth project.
+  crmm-id:
+    description: The unique identifier of your CRMM project.
     required: false
     default: ${undefined}
-  modrinth-featured:
-    description: Set to true to feature the version on Modrinth; false otherwise.
+  crmm-featured:
+    description: Set to true to feature the version on CRMM; false otherwise.
     required: false
     default: ${undefined}
-  modrinth-unfeature-mode:
-    description: Sets the behavior for unfeaturing older Modrinth versions.
+  crmm-unfeature-mode:
+    description: Sets the behavior for unfeaturing older CRMM versions.
     default: subset
     required: false
-  modrinth-token:
-    description: Your Modrinth API token.
+  crmm-token:
+    description: Your CRMM API token.
     required: false
     default: ${undefined}
   curseforge-id:
@@ -116,7 +116,7 @@ inputs:
     required: false
     default: ${undefined}
   game-versions:
-    description: An array of supported Minecraft versions.
+    description: An array of supported Cosmic Reach versions.
     required: false
     default: ${undefined}
   dependencies:
@@ -149,7 +149,7 @@ inputs:
       publishing process.
     default: fail
     required: false
-  modrinth-files:
+  crmm-files:
     description: An array of globs determining which files to upload.
     default: ${undefined}
     required: false
@@ -161,7 +161,7 @@ inputs:
     description: An array of globs determining which files to upload.
     default: ${undefined}
     required: false
-  modrinth-files-primary:
+  crmm-files-primary:
     description: A glob determining the primary files to upload.
     deprecationMessage: Please, use 'files' instead.
     required: false
@@ -176,7 +176,7 @@ inputs:
     deprecationMessage: Please, use 'files' instead.
     required: false
     default: ${undefined}
-  modrinth-files-secondary:
+  crmm-files-secondary:
     description: A glob determining the secondary files to upload.
     deprecationMessage: Please, use 'files' instead.
     required: false
@@ -191,7 +191,7 @@ inputs:
     deprecationMessage: Please, use 'files' instead.
     required: false
     default: ${undefined}
-  modrinth-name:
+  crmm-name:
     description: The name of the version.
     required: false
     default: ${undefined}
@@ -203,7 +203,7 @@ inputs:
     description: The name of the version.
     required: false
     default: ${undefined}
-  modrinth-version:
+  crmm-version:
     description: The version number.
     required: false
     default: ${undefined}
@@ -215,7 +215,7 @@ inputs:
     description: The version number.
     required: false
     default: ${undefined}
-  modrinth-version-type:
+  crmm-version-type:
     description: The version type - alpha, beta, or release.
     required: false
     default: ${undefined}
@@ -227,7 +227,7 @@ inputs:
     description: The version type - alpha, beta, or release.
     required: false
     default: ${undefined}
-  modrinth-changelog:
+  crmm-changelog:
     description: The changelog for this version.
     required: false
     default: ${undefined}
@@ -239,7 +239,7 @@ inputs:
     description: The changelog for this version.
     required: false
     default: ${undefined}
-  modrinth-changelog-file:
+  crmm-changelog-file:
     description: A glob pointing to the changelog file.
     required: false
     default: ${undefined}
@@ -251,7 +251,7 @@ inputs:
     description: A glob pointing to the changelog file.
     required: false
     default: ${undefined}
-  modrinth-loaders:
+  crmm-loaders:
     description: An array of supported mod loaders.
     required: false
     default: ${undefined}
@@ -263,19 +263,19 @@ inputs:
     description: An array of supported mod loaders.
     required: false
     default: ${undefined}
-  modrinth-game-versions:
-    description: An array of supported Minecraft versions.
+  crmm-game-versions:
+    description: An array of supported Cosmic Reach versions.
     required: false
     default: ${undefined}
   curseforge-game-versions:
-    description: An array of supported Minecraft versions.
+    description: An array of supported Cosmic Reach versions.
     required: false
     default: ${undefined}
   github-game-versions:
-    description: An array of supported Minecraft versions.
+    description: An array of supported Cosmic Reach versions.
     required: false
     default: ${undefined}
-  modrinth-dependencies:
+  crmm-dependencies:
     description: An array of dependencies required by your project.
     required: false
     default: ${undefined}
@@ -287,7 +287,7 @@ inputs:
     description: An array of dependencies required by your project.
     required: false
     default: ${undefined}
-  modrinth-version-resolver:
+  crmm-version-resolver:
     description: Controls the method used to automatically resolve game versions.
     deprecationMessage: Please, use 'game-version-filter' instead.
     required: false
@@ -302,7 +302,7 @@ inputs:
     deprecationMessage: Please, use 'game-version-filter' instead.
     required: false
     default: ${undefined}
-  modrinth-game-version-filter:
+  crmm-game-version-filter:
     description: Controls the method used to filter game versions.
     default: ${undefined}
     required: false
@@ -314,7 +314,7 @@ inputs:
     description: Controls the method used to filter game versions.
     default: ${undefined}
     required: false
-  modrinth-java:
+  crmm-java:
     description: An array of Java versions compatible with your project.
     required: false
     default: ${undefined}
@@ -326,7 +326,7 @@ inputs:
     description: An array of Java versions compatible with your project.
     required: false
     default: ${undefined}
-  modrinth-retry-attempts:
+  crmm-retry-attempts:
     description: Defines the maximum number of asset publishing attempts.
     default: ${undefined}
     required: false
@@ -338,7 +338,7 @@ inputs:
     description: Defines the maximum number of asset publishing attempts.
     default: ${undefined}
     required: false
-  modrinth-retry-delay:
+  crmm-retry-delay:
     description: Specifies the delay (in milliseconds) between asset publishing attempts.
     default: ${undefined}
     required: false
@@ -350,7 +350,7 @@ inputs:
     description: Specifies the delay (in milliseconds) between asset publishing attempts.
     default: ${undefined}
     required: false
-  modrinth-fail-mode:
+  crmm-fail-mode:
     description: Controls how the action responds to errors during the mod
       publishing process.
     default: ${undefined}
@@ -366,15 +366,15 @@ inputs:
     default: ${undefined}
     required: false
 outputs:
-  modrinth-id:
-    description: The unique identifier of your Modrinth project.
-  modrinth-version:
-    description: The unique identifier of the version published on Modrinth by this action.
-  modrinth-url:
-    description: The URL directing to the newly published version on Modrinth.
-  modrinth-files:
+  crmm-id:
+    description: The unique identifier of your CRMM project.
+  crmm-version:
+    description: The unique identifier of the version published on CRMM by this action.
+  crmm-url:
+    description: The URL directing to the newly published version on CRMM.
+  crmm-files:
     description: Array of objects, each containing details about the files published
-      for the new version on Modrinth, such as file `name`, `id`, and download
+      for the new version on CRMM, such as file `name`, `id`, and download
       `url`.
   curseforge-id:
     description: The unique identifier of your CurseForge project.

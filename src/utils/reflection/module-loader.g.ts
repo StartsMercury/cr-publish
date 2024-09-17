@@ -9,7 +9,7 @@
 /*              properly reflected in the auto-generated file.              */
 /* ************************************************************************ */
 /* eslint-disable */
-import * as _08266313cf301b8949a6cedcaa47a6c3e43934d9 from "@/platforms/modrinth/modrinth-unfeature-mode";
+import * as _1f3b2edb0827b9862ad9e427d730f4a291265d0c from "@/platforms/crmm/crmm-unfeature-mode";
 import * as _d55dccbfda6518ce241204ddb1a0e427ce862b40 from "@/utils/security/secure-string";
 import * as _52f2d2846827ca15dbb2bc99e7396358640a305c from "@/utils/io/file-info";
 import * as _cece1ed3512bc9bb742f3472360aea9d482df4ac from "@/utils/versioning/version-type";
@@ -20,7 +20,7 @@ import * as _78525bc7f22a643e04dd785d89dd01e5c9c2f812 from "@/utils/errors/fail-
 import * as _6f74c0ca5e9e22747c834103f851654db4509ca8 from "@/platforms/uploaded-file";
 
 export const ACTION_MODULE_LOADER = (path: string): Promise<Record<string, unknown>> => {
-    if (path === "platforms/modrinth/modrinth-unfeature-mode") return Promise.resolve(_08266313cf301b8949a6cedcaa47a6c3e43934d9);
+    if (path === "platforms/crmm/crmm-unfeature-mode") return Promise.resolve(_1f3b2edb0827b9862ad9e427d730f4a291265d0c);
     if (path === "utils/security/secure-string") return Promise.resolve(_d55dccbfda6518ce241204ddb1a0e427ce862b40);
     if (path === "utils/io/file-info") return Promise.resolve(_52f2d2846827ca15dbb2bc99e7396358640a305c);
     if (path === "utils/versioning/version-type") return Promise.resolve(_cece1ed3512bc9bb742f3472360aea9d482df4ac);

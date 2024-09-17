@@ -12,9 +12,9 @@ enum PlatformTypeValues {
     CURSEFORGE = "curseforge",
 
     /**
-     * Represents Modrinth.
+     * Represents CRMM.
      */
-    MODRINTH = "modrinth",
+    CRMM = "crmm",
 
     /**
      * Represents GitHub.

@@ -34,7 +34,7 @@ const CURSEFORGE_ETERNAL_FETCH = createFakeFetch({
             data: [{
                 id: 1,
                 slug: "foo",
-                links: { websiteUrl: "https://www.curseforge.com/minecraft/mc-mods/foo" },
+                links: { websiteUrl: "https://www.curseforge.com/cosmic-reach/cr-mods/foo" },
             }],
         }),
 
@@ -42,7 +42,7 @@ const CURSEFORGE_ETERNAL_FETCH = createFakeFetch({
             data: {
                 id: 306612,
                 slug: "fabric-api",
-                links: { websiteUrl: "https://www.curseforge.com/minecraft/mc-mods/fabric-api" },
+                links: { websiteUrl: "https://www.curseforge.com/cosmic-reach/cr-mods/fabric-api" },
             },
         }),
     },
@@ -135,7 +135,7 @@ describe("CurseForgeUploader", () => {
             expect(report).toEqual({
                 id: 1,
                 version: 42,
-                url: "https://www.curseforge.com/minecraft/mc-mods/foo/files/42",
+                url: "https://www.curseforge.com/cosmic-reach/cr-mods/foo/files/42",
                 files: [{
                     id: 42,
                     name: "Version v1.0.0",

@@ -20,31 +20,31 @@ describe("isDependency", () => {
 
 describe("parseDependency", () => {
     test("parses a fully-formed dependency string", () => {
-        const dependency = parseDependency("id@1.0.0-2.0.0-alpha.1(optional){modrinth:modrinth-slug}{curseforge:curseforge-slug}#(ignore:curseforge,github)");
+        const dependency = parseDependency("id@1.0.0-2.0.0-alpha.1(optional){crmm:crmm-slug}{curseforge:curseforge-slug}#(ignore:curseforge,github)");
 
         expect(dependency).toBeDefined();
         expect(dependency.id).toBe("id");
         expect(dependency.versions).toEqual(["1.0.0-2.0.0-alpha.1"]);
         expect(dependency.type).toBe(DependencyType.OPTIONAL);
-        expect(dependency.getProjectId(PlatformType.MODRINTH)).toBe("modrinth-slug");
+        expect(dependency.getProjectId(PlatformType.CRMM)).toBe("crmm-slug");
         expect(dependency.getProjectId(PlatformType.CURSEFORGE)).toBe("curseforge-slug");
         expect(dependency.getProjectId(PlatformType.GITHUB)).toBe("id");
-        expect(dependency.isIgnored(PlatformType.MODRINTH)).toBe(false);
+        expect(dependency.isIgnored(PlatformType.CRMM)).toBe(false);
         expect(dependency.isIgnored(PlatformType.CURSEFORGE)).toBe(true);
         expect(dependency.isIgnored(PlatformType.GITHUB)).toBe(true);
     });
 
     test("parses a dependency string with omitted 'ignore' part", () => {
-        const dependency = parseDependency("id@1.0.0-2.0.0-alpha.1(optional){modrinth:modrinth-slug}{curseforge:curseforge-slug}");
+        const dependency = parseDependency("id@1.0.0-2.0.0-alpha.1(optional){crmm:crmm-slug}{curseforge:curseforge-slug}");
 
         expect(dependency).toBeDefined();
         expect(dependency.id).toBe("id");
         expect(dependency.versions).toEqual(["1.0.0-2.0.0-alpha.1"]);
         expect(dependency.type).toBe(DependencyType.OPTIONAL);
-        expect(dependency.getProjectId(PlatformType.MODRINTH)).toBe("modrinth-slug");
+        expect(dependency.getProjectId(PlatformType.CRMM)).toBe("crmm-slug");
         expect(dependency.getProjectId(PlatformType.CURSEFORGE)).toBe("curseforge-slug");
         expect(dependency.getProjectId(PlatformType.GITHUB)).toBe("id");
-        expect(dependency.isIgnored(PlatformType.MODRINTH)).toBe(false);
+        expect(dependency.isIgnored(PlatformType.CRMM)).toBe(false);
         expect(dependency.isIgnored(PlatformType.CURSEFORGE)).toBe(false);
         expect(dependency.isIgnored(PlatformType.GITHUB)).toBe(false);
     });
@@ -56,40 +56,40 @@ describe("parseDependency", () => {
         expect(dependency.id).toBe("id");
         expect(dependency.versions).toEqual(["1.0.0-2.0.0-alpha.1"]);
         expect(dependency.type).toBe(DependencyType.OPTIONAL);
-        expect(dependency.getProjectId(PlatformType.MODRINTH)).toBe("id");
+        expect(dependency.getProjectId(PlatformType.CRMM)).toBe("id");
         expect(dependency.getProjectId(PlatformType.CURSEFORGE)).toBe("id");
         expect(dependency.getProjectId(PlatformType.GITHUB)).toBe("id");
-        expect(dependency.isIgnored(PlatformType.MODRINTH)).toBe(false);
+        expect(dependency.isIgnored(PlatformType.CRMM)).toBe(false);
         expect(dependency.isIgnored(PlatformType.CURSEFORGE)).toBe(true);
         expect(dependency.isIgnored(PlatformType.GITHUB)).toBe(true);
     });
 
     test("parses a dependency string with omitted 'type' part", () => {
-        const dependency = parseDependency("id@1.0.0-2.0.0-alpha.1{modrinth:modrinth-slug}{curseforge:curseforge-slug}#(ignore:curseforge,github)");
+        const dependency = parseDependency("id@1.0.0-2.0.0-alpha.1{crmm:crmm-slug}{curseforge:curseforge-slug}#(ignore:curseforge,github)");
 
         expect(dependency).toBeDefined();
         expect(dependency.id).toBe("id");
         expect(dependency.versions).toEqual(["1.0.0-2.0.0-alpha.1"]);
         expect(dependency.type).toBe(DependencyType.REQUIRED);
-        expect(dependency.getProjectId(PlatformType.MODRINTH)).toBe("modrinth-slug");
+        expect(dependency.getProjectId(PlatformType.CRMM)).toBe("crmm-slug");
         expect(dependency.getProjectId(PlatformType.CURSEFORGE)).toBe("curseforge-slug");
         expect(dependency.getProjectId(PlatformType.GITHUB)).toBe("id");
-        expect(dependency.isIgnored(PlatformType.MODRINTH)).toBe(false);
+        expect(dependency.isIgnored(PlatformType.CRMM)).toBe(false);
         expect(dependency.isIgnored(PlatformType.CURSEFORGE)).toBe(true);
         expect(dependency.isIgnored(PlatformType.GITHUB)).toBe(true);
     });
 
     test("parses a dependency string with omitted 'version' part", () => {
-        const dependency = parseDependency("id(optional){modrinth:modrinth-slug}{curseforge:curseforge-slug}#(ignore:curseforge,github)");
+        const dependency = parseDependency("id(optional){crmm:crmm-slug}{curseforge:curseforge-slug}#(ignore:curseforge,github)");
 
         expect(dependency).toBeDefined();
         expect(dependency.id).toBe("id");
         expect(dependency.versions).toEqual(["*"]);
         expect(dependency.type).toBe(DependencyType.OPTIONAL);
-        expect(dependency.getProjectId(PlatformType.MODRINTH)).toBe("modrinth-slug");
+        expect(dependency.getProjectId(PlatformType.CRMM)).toBe("crmm-slug");
         expect(dependency.getProjectId(PlatformType.CURSEFORGE)).toBe("curseforge-slug");
         expect(dependency.getProjectId(PlatformType.GITHUB)).toBe("id");
-        expect(dependency.isIgnored(PlatformType.MODRINTH)).toBe(false);
+        expect(dependency.isIgnored(PlatformType.CRMM)).toBe(false);
         expect(dependency.isIgnored(PlatformType.CURSEFORGE)).toBe(true);
         expect(dependency.isIgnored(PlatformType.GITHUB)).toBe(true);
     });
@@ -101,10 +101,10 @@ describe("parseDependency", () => {
         expect(dependency.id).toBe("id");
         expect(dependency.versions).toEqual(["*"]);
         expect(dependency.type).toBe(DependencyType.REQUIRED);
-        expect(dependency.getProjectId(PlatformType.MODRINTH)).toBe("id");
+        expect(dependency.getProjectId(PlatformType.CRMM)).toBe("id");
         expect(dependency.getProjectId(PlatformType.CURSEFORGE)).toBe("id");
         expect(dependency.getProjectId(PlatformType.GITHUB)).toBe("id");
-        expect(dependency.isIgnored(PlatformType.MODRINTH)).toBe(false);
+        expect(dependency.isIgnored(PlatformType.CRMM)).toBe(false);
         expect(dependency.isIgnored(PlatformType.CURSEFORGE)).toBe(false);
         expect(dependency.isIgnored(PlatformType.GITHUB)).toBe(false);
     });
@@ -116,10 +116,10 @@ describe("parseDependency", () => {
         expect(dependency.id).toBe("id");
         expect(dependency.versions).toEqual(["1.0.0"]);
         expect(dependency.type).toBe(DependencyType.REQUIRED);
-        expect(dependency.getProjectId(PlatformType.MODRINTH)).toBe("id");
+        expect(dependency.getProjectId(PlatformType.CRMM)).toBe("id");
         expect(dependency.getProjectId(PlatformType.CURSEFORGE)).toBe("id");
         expect(dependency.getProjectId(PlatformType.GITHUB)).toBe("id");
-        expect(dependency.isIgnored(PlatformType.MODRINTH)).toBe(false);
+        expect(dependency.isIgnored(PlatformType.CRMM)).toBe(false);
         expect(dependency.isIgnored(PlatformType.CURSEFORGE)).toBe(false);
         expect(dependency.isIgnored(PlatformType.GITHUB)).toBe(false);
     });
@@ -131,10 +131,10 @@ describe("parseDependency", () => {
         expect(dependency.id).toBe("id");
         expect(dependency.versions).toEqual(["1.0.0"]);
         expect(dependency.type).toBe(DependencyType.OPTIONAL);
-        expect(dependency.getProjectId(PlatformType.MODRINTH)).toBe("id");
+        expect(dependency.getProjectId(PlatformType.CRMM)).toBe("id");
         expect(dependency.getProjectId(PlatformType.CURSEFORGE)).toBe("id");
         expect(dependency.getProjectId(PlatformType.GITHUB)).toBe("id");
-        expect(dependency.isIgnored(PlatformType.MODRINTH)).toBe(false);
+        expect(dependency.isIgnored(PlatformType.CRMM)).toBe(false);
         expect(dependency.isIgnored(PlatformType.CURSEFORGE)).toBe(false);
         expect(dependency.isIgnored(PlatformType.GITHUB)).toBe(false);
     });
@@ -146,10 +146,10 @@ describe("parseDependency", () => {
         expect(dependency.id).toBe("id");
         expect(dependency.versions).toEqual(["*"]);
         expect(dependency.type).toBe(DependencyType.OPTIONAL);
-        expect(dependency.getProjectId(PlatformType.MODRINTH)).toBe("id");
+        expect(dependency.getProjectId(PlatformType.CRMM)).toBe("id");
         expect(dependency.getProjectId(PlatformType.CURSEFORGE)).toBe("id");
         expect(dependency.getProjectId(PlatformType.GITHUB)).toBe("id");
-        expect(dependency.isIgnored(PlatformType.MODRINTH)).toBe(false);
+        expect(dependency.isIgnored(PlatformType.CRMM)).toBe(false);
         expect(dependency.isIgnored(PlatformType.CURSEFORGE)).toBe(false);
         expect(dependency.isIgnored(PlatformType.GITHUB)).toBe(false);
     });
@@ -187,11 +187,11 @@ describe("cerateDependency", () => {
         expect(createDependency("id@1.0.0")).toBeDefined();
         expect(createDependency("id@1.0.0(optional)")).toBeDefined();
         expect(createDependency("id(optional)")).toBeDefined();
-        expect(createDependency("id@1.0.0-2.0.0-alpha.1(optional){modrinth:modrinth-slug}{curseforge:curseforge-slug}#(ignore:curseforge,github)")).toBeDefined();
-        expect(createDependency("id@1.0.0-2.0.0-alpha.1(optional){modrinth:modrinth-slug}{curseforge:curseforge-slug}")).toBeDefined();
+        expect(createDependency("id@1.0.0-2.0.0-alpha.1(optional){crmm:crmm-slug}{curseforge:curseforge-slug}#(ignore:curseforge,github)")).toBeDefined();
+        expect(createDependency("id@1.0.0-2.0.0-alpha.1(optional){crmm:crmm-slug}{curseforge:curseforge-slug}")).toBeDefined();
         expect(createDependency("id@1.0.0-2.0.0-alpha.1(optional)#(ignore:curseforge,github)")).toBeDefined();
-        expect(createDependency("id@1.0.0-2.0.0-alpha.1{modrinth:modrinth-slug}{curseforge:curseforge-slug}#(ignore:curseforge,github)")).toBeDefined();
-        expect(createDependency("id(optional){modrinth:modrinth-slug}{curseforge:curseforge-slug}#(ignore:curseforge,github)")).toBeDefined();
+        expect(createDependency("id@1.0.0-2.0.0-alpha.1{crmm:crmm-slug}{curseforge:curseforge-slug}#(ignore:curseforge,github)")).toBeDefined();
+        expect(createDependency("id(optional){crmm:crmm-slug}{curseforge:curseforge-slug}#(ignore:curseforge,github)")).toBeDefined();
     });
 
     test("converts DependencyInfo-like objects to Dependency objects", () => {
@@ -221,8 +221,8 @@ describe("cerateDependency", () => {
 describe("formatDependency", () => {
     test("formats fine-tuned dependencies as fully qualified dependency strings", () => {
         const dependencies = [
-            "id@1.0.0-2.0.0-alpha.1(optional){curseforge:curseforge-slug}{modrinth:modrinth-slug}#(ignore:curseforge,github)",
-            "id@1.0.0(embedded){modrinth:modrinth-slug}#(ignore:curseforge)",
+            "id@1.0.0-2.0.0-alpha.1(optional){curseforge:curseforge-slug}{crmm:crmm-slug}#(ignore:curseforge,github)",
+            "id@1.0.0(embedded){crmm:crmm-slug}#(ignore:curseforge)",
             "id@1.0.0 || 2.0.0-alpha.1(conflicting){curseforge:curseforge-slug}#(ignore:github)",
         ];
 
@@ -233,8 +233,8 @@ describe("formatDependency", () => {
 
     test("formats dependencies and omits unused 'ignore' section", () => {
         const dependencies = [
-            "id@1.0.0-2.0.0-alpha.1(optional){curseforge:curseforge-slug}{modrinth:modrinth-slug}",
-            "id@1.0.0(embedded){modrinth:modrinth-slug}",
+            "id@1.0.0-2.0.0-alpha.1(optional){curseforge:curseforge-slug}{crmm:crmm-slug}",
+            "id@1.0.0(embedded){crmm:crmm-slug}",
             "id@1.0.0 || 2.0.0-alpha.1(conflicting){curseforge:curseforge-slug}",
         ];
 
@@ -257,8 +257,8 @@ describe("formatDependency", () => {
 
     test("formats dependencies and omits unused 'version' section", () => {
         const dependencies = [
-            "id(optional){curseforge:curseforge-slug}{modrinth:modrinth-slug}#(ignore:curseforge,github)",
-            "id(embedded){modrinth:modrinth-slug}#(ignore:curseforge)",
+            "id(optional){curseforge:curseforge-slug}{crmm:crmm-slug}#(ignore:curseforge,github)",
+            "id(embedded){crmm:crmm-slug}#(ignore:curseforge)",
             "id(conflicting){curseforge:curseforge-slug}#(ignore:github)",
         ];
 

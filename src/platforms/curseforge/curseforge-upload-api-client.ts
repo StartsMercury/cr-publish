@@ -1,5 +1,5 @@
 import { GameVersionProvider } from "@/games";
-import { MINECRAFT_VERSION_PROVIDER } from "@/games/minecraft";
+import { COSMIC_REACH_VERSION_PROVIDER } from "@/games/cosmic-reach";
 import { retry } from "@/utils/async-utils";
 import { isHttpError } from "@/utils/errors";
 import { JavaVersion } from "@/utils/java";
@@ -15,7 +15,7 @@ import { CurseForgeVersion, CurseForgeVersionInit, packCurseForgeVersionInit } f
 /**
  * The base URL for the CurseForge Upload API.
  */
-export const CURSEFORGE_UPLOAD_API_URL = "https://minecraft.curseforge.com/api";
+export const CURSEFORGE_UPLOAD_API_URL = "https://cosmic-reach.curseforge.com/api";
 
 /**
  * Describes the configuration options for the CurseForge Upload API client.
@@ -74,7 +74,7 @@ export class CurseForgeUploadApiClient {
         .use(simpleCache())
         .use(throwOnError());
 
-        this._gameVersionProvider = options?.gameVersionProvider || MINECRAFT_VERSION_PROVIDER;
+        this._gameVersionProvider = options?.gameVersionProvider || COSMIC_REACH_VERSION_PROVIDER;
     }
 
     /**
@@ -215,7 +215,7 @@ export class CurseForgeUploadApiClient {
             // These ids are used by: `Bukkit Plugins`.
             //
             // While there's only one category that uses this type of ids,
-            // it's safe to say that users of `mc-publish` are most likely
+            // it's safe to say that users of `cr-publish` are most likely
             // to publish plugins with it, rather than addons.
             pluginGameVersionIds,
 

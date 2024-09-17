@@ -1,5 +1,5 @@
 import { Dependency } from "@/dependencies";
-import { MINECRAFT } from "@/games/minecraft";
+import { COSMIC_REACH } from "@/games/cosmic-reach";
 import { LoaderMetadata } from "@/loaders/loader-metadata";
 import { PlatformType } from "@/platforms";
 import { $i } from "@/utils/collections";
@@ -70,7 +70,7 @@ export class NeoForgeMetadata implements LoaderMetadata {
      * @inheritdoc
      */
     get gameName(): string {
-        return MINECRAFT;
+        return COSMIC_REACH;
     }
 
     /**

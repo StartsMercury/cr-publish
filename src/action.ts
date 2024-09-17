@@ -9,7 +9,7 @@
 /*              properly reflected in the auto-generated file.              */
 /* ************************************************************************ */
 /* eslint-disable */
-import { ModrinthUnfeatureMode } from "@/platforms/modrinth/modrinth-unfeature-mode";
+import { CrmmUnfeatureMode } from "@/platforms/crmm/crmm-unfeature-mode";
 import { SecureString } from "@/utils/security/secure-string";
 import { FileInfo } from "@/utils/io/file-info";
 import { VersionType } from "@/utils/versioning/version-type";
@@ -20,35 +20,35 @@ import { FailMode } from "@/utils/errors/fail-mode";
 import { UploadedFile } from "@/platforms/uploaded-file";
 
 /**
- * Your one-stop GitHub Action for seamless Minecraft project publication across various platforms.
+ * Your one-stop GitHub Action for seamless Cosmic Reach project publication across various platforms.
  */
-export const ACTION_NAME = "mc-publish";
+export const ACTION_NAME = "cr-publish";
 
 /**
  * The input parameters for the action.
  */
 export interface McPublishInput {
     /**
-     * Options used to publish Minecraft projects to Modrinth.
+     * Options used to publish Cosmic Reach projects to CRMM.
      */
-    modrinth?: {
+    crmm?: {
         /**
-         * The unique identifier of your Modrinth project.
+         * The unique identifier of your CRMM project.
          */
         id?: string;
 
         /**
-         * Set to true to feature the version on Modrinth; false otherwise.
+         * Set to true to feature the version on CRMM; false otherwise.
          */
         featured?: boolean;
 
         /**
-         * Sets the behavior for unfeaturing older Modrinth versions.
+         * Sets the behavior for unfeaturing older CRMM versions.
          */
-        unfeatureMode?: ModrinthUnfeatureMode;
+        unfeatureMode?: CrmmUnfeatureMode;
 
         /**
-         * Your Modrinth API token.
+         * Your CRMM API token.
          */
         token?: SecureString;
 
@@ -83,7 +83,7 @@ export interface McPublishInput {
         loaders?: string[];
 
         /**
-         * An array of supported Minecraft versions.
+         * An array of supported Cosmic Reach versions.
          */
         gameVersions?: string[];
 
@@ -119,7 +119,7 @@ export interface McPublishInput {
     };
 
     /**
-     * Options used to publish Minecraft projects to CurseForge.
+     * Options used to publish Cosmic Reach projects to CurseForge.
      */
     curseforge?: {
         /**
@@ -163,7 +163,7 @@ export interface McPublishInput {
         loaders?: string[];
 
         /**
-         * An array of supported Minecraft versions.
+         * An array of supported Cosmic Reach versions.
          */
         gameVersions?: string[];
 
@@ -199,7 +199,7 @@ export interface McPublishInput {
     };
 
     /**
-     * Options used to publish Minecraft projects to GitHub.
+     * Options used to publish Cosmic Reach projects to GitHub.
      */
     github?: {
         /**
@@ -268,7 +268,7 @@ export interface McPublishInput {
         loaders?: string[];
 
         /**
-         * An array of supported Minecraft versions.
+         * An array of supported Cosmic Reach versions.
          */
         gameVersions?: string[];
 
@@ -334,7 +334,7 @@ export interface McPublishInput {
     loaders?: string[];
 
     /**
-     * An array of supported Minecraft versions.
+     * An array of supported Cosmic Reach versions.
      */
     gameVersions?: string[];
 
@@ -370,17 +370,17 @@ export interface McPublishInput {
 };
 
 /**
- * Options used to publish Minecraft projects to Modrinth.
+ * Options used to publish Cosmic Reach projects to CRMM.
  */
-export type ModrinthUploadRequest = McPublishInput["modrinth"];
+export type CrmmUploadRequest = McPublishInput["crmm"];
 
 /**
- * Options used to publish Minecraft projects to CurseForge.
+ * Options used to publish Cosmic Reach projects to CurseForge.
  */
 export type CurseForgeUploadRequest = McPublishInput["curseforge"];
 
 /**
- * Options used to publish Minecraft projects to GitHub.
+ * Options used to publish Cosmic Reach projects to GitHub.
  */
 export type GitHubUploadRequest = McPublishInput["github"];
 
@@ -389,26 +389,26 @@ export type GitHubUploadRequest = McPublishInput["github"];
  */
 export interface McPublishOutput {
     /**
-     * Report detailing the status of the project published on Modrinth.
+     * Report detailing the status of the project published on CRMM.
      */
-    modrinth: {
+    crmm: {
         /**
-         * The unique identifier of your Modrinth project.
+         * The unique identifier of your CRMM project.
          */
         id: string;
 
         /**
-         * The unique identifier of the version published on Modrinth by this action.
+         * The unique identifier of the version published on CRMM by this action.
          */
         version: string;
 
         /**
-         * The URL directing to the newly published version on Modrinth.
+         * The URL directing to the newly published version on CRMM.
          */
         url: string;
 
         /**
-         * Array of objects, each containing details about the files published for the new version on Modrinth, such as file `name`, `id`, and download `url`.
+         * Array of objects, each containing details about the files published for the new version on CRMM, such as file `name`, `id`, and download `url`.
          */
         files: UploadedFile[];
     };
@@ -465,9 +465,9 @@ export interface McPublishOutput {
 };
 
 /**
- * Report detailing the status of the project published on Modrinth.
+ * Report detailing the status of the project published on CRMM.
  */
-export type ModrinthUploadReport = McPublishOutput["modrinth"];
+export type CrmmUploadReport = McPublishOutput["crmm"];
 
 /**
  * Report detailing the status of the project published on CurseForge.

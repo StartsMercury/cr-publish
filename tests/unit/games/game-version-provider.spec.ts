@@ -2,7 +2,7 @@ import { getGameVersionProviderByName } from "@/games/game-version-provider";
 
 describe("getGameVersionProviderByName", () => {
     test("returns the correct provider for a given game name", () => {
-        const provider = getGameVersionProviderByName("minecraft");
+        const provider = getGameVersionProviderByName("cosmic-reach");
 
         expect(provider).toBeDefined();
     });

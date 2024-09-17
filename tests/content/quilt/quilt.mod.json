@@ -33,7 +33,7 @@
         "versions": ">=0.40.0"
       },
       {
-        "id": "minecraft",
+        "id": "cosmic-reach",
         "versions": [
           "1.17",
           "1.17.1"
@@ -46,8 +46,8 @@
       {
         "id": "suggested-mod",
         "optional": true,
-        "mc-publish": {
-          "modrinth": "BBBB",
+        "cr-publish": {
+          "crmm": "BBBB",
           "curseforge": 43,
           "github": "v0.3.0",
           "ignore": ["curseforge"]
@@ -67,17 +67,17 @@
     ]
 
   },
-  "minecraft": {
+  "cosmic-reach": {
     "environment": "*"
   },
-  "mc-publish": {
-    "github": "mc1.18-0.4.0-alpha5",
+  "cr-publish": {
+    "github": "cr1.18-0.4.0-alpha5",
     "curseforge": 394468,
-    "modrinth": "AANobbMI",
+    "crmm": "AANobbMI",
 
     "loaders": ["quilt", "fabric"],
     "dependencies": [
-      "recommended-mod@0.2.0(recommended){modrinth:AAAA}{curseforge:42}{github:v0.2.0}#(ignore)"
+      "recommended-mod@0.2.0(recommended){crmm:AAAA}{curseforge:42}{github:v0.2.0}#(ignore)"
     ]
   }
 }

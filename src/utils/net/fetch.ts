@@ -80,7 +80,7 @@ type FetchUrl = string | URL;
  * Default headers to be used in requests.
  */
 const DEFAULT_HEADERS: Headers = {
-    "User-Agent": `Kir-Antipov/${ACTION_NAME} (https://github.com/Kir-Antipov/${ACTION_NAME}/issues/new)`,
+    "User-Agent": `StartsMercury/${ACTION_NAME} (https://github.com/StartsMercury/${ACTION_NAME}/issues/new)`,
 };
 
 /**

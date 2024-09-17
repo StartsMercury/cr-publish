@@ -47,11 +47,11 @@ function _parseLegacyDependencyFormat(dependencyFormat: string): DependencyInfo 
  *
  * The old dependency string format is deprecated. Please use the new format.
  *
- * Example: `foo@1.0.0-2.0.0(required){modrinth:foo-fabric}#(ignore:curseforge)`.
+ * Example: `foo@1.0.0-2.0.0(required){crmm:foo-fabric}#(ignore:curseforge)`.
  */
 export const parseLegacyDependencyFormat = deprecate(
     _parseLegacyDependencyFormat,
     "The old dependency string format is deprecated. " +
     "Please use the new format. " +
-    "Example: foo@1.0.0-2.0.0(required){modrinth:foo-fabric}#(ignore:curseforge)",
+    "Example: foo@1.0.0-2.0.0(required){crmm:foo-fabric}#(ignore:curseforge)",
 );

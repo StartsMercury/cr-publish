@@ -1,7 +1,7 @@
 import { CurseForgeUploader } from "./curseforge/curseforge-uploader";
 import { GenericPlatformUploadRequest, KnownPlatformUploaderOptions } from "./generic-platform-uploader";
 import { GitHubUploader } from "./github/github-uploader";
-import { ModrinthUploader } from "./modrinth/modrinth-uploader";
+import { CrmmUploader } from "./crmm/crmm-uploader";
 import { PlatformType } from "./platform-type";
 
 /**
@@ -36,8 +36,8 @@ export interface PlatformUploader<TRequest, TReport> {
  */
 export function createPlatformUploader(platform: PlatformType, options: KnownPlatformUploaderOptions): PlatformUploader<GenericPlatformUploadRequest, unknown> {
     switch (platform) {
-        case PlatformType.MODRINTH:
-            return new ModrinthUploader(options);
+        case PlatformType.CRMM:
+            return new CrmmUploader(options);
 
         case PlatformType.CURSEFORGE:
             return new CurseForgeUploader(options);

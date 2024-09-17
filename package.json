@@ -1,7 +1,7 @@
 {
-  "name": "mc-publish",
+  "name": "cr-publish",
   "version": "3.3.0",
-  "description": "GitHub Action that helps you publish your Minecraft mods",
+  "description": "GitHub Action that helps you publish your Cosmic Reach mods",
   "main": "src/index.ts",
   "type": "module",
   "scripts": {
@@ -18,21 +18,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Kir-Antipov/mc-publish.git"
+    "url": "git+https://github.com/StartsMercury/cr-publish.git"
   },
   "keywords": [
     "github",
     "actions",
-    "minecraft",
-    "minecraft-mod",
+    "cosmic-reach",
+    "cosmic-reach-mod",
     "publish"
   ],
-  "author": "Kir-Antipov",
+  "author": "StartsMercury",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Kir-Antipov/mc-publish/issues"
+    "url": "https://github.com/StartsMercury/cr-publish/issues"
   },
-  "homepage": "https://github.com/Kir-Antipov/mc-publish#readme",
+  "homepage": "https://github.com/StartsMercury/cr-publish#readme",
   "devDependencies": {
     "@babel/preset-env": "^7.23.8",
     "@types/jest": "^29.5.11",

@@ -9,7 +9,7 @@ import { VersionType } from "@/utils/versioning";
 import { Fetch, fetch } from "@/utils/net";
 import { CurseForgeUploaderOptions } from "./curseforge/curseforge-uploader";
 import { GitHubUploaderOptions } from "./github/github-uploader";
-import { ModrinthUploaderOptions } from "./modrinth/modrinth-uploader";
+import { CrmmUploaderOptions } from "./crmm/crmm-uploader";
 import { PlatformType } from "./platform-type";
 import { PlatformUploader } from "./platform-uploader";
 
@@ -32,7 +32,7 @@ export interface GenericPlatformUploaderOptions {
  * Represents all known options for a generic platform uploader.
  */
 export type KnownPlatformUploaderOptions =
-    & ModrinthUploaderOptions
+    & CrmmUploaderOptions
     & GitHubUploaderOptions
     & CurseForgeUploaderOptions;
 

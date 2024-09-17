@@ -79,7 +79,7 @@ type QuiltDependencyCustomPayload = {
  * A list of special dependencies that should be ignored.
  */
 const IGNORED_DEPENDENCIES: readonly string[] = [
-    "minecraft",
+    "cosmic-reach",
     "java",
     "quilt_loader",
 ];

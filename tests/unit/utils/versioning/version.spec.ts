@@ -37,14 +37,14 @@ describe("parseVersion", () => {
     });
 
     test("file version is correctly extracted from the filename", () => {
-        expect(String(parseVersion("sodium-fabric-mc1.17.1-0.3.2+build.7"))).toBe("mc1.17.1-0.3.2+build.7");
+        expect(String(parseVersion("sodium-fabric-cr1.17.1-0.3.2+build.7"))).toBe("cr1.17.1-0.3.2+build.7");
         expect(String(parseVersion("fabric-api-0.40.1+1.18_experimental"))).toBe("0.40.1+1.18_experimental");
         expect(String(parseVersion("TechReborn-5.0.8-beta+build.111"))).toBe("5.0.8-beta+build.111");
         expect(String(parseVersion("TechReborn-1.17-5.0.1-beta+build.29"))).toBe("1.17-5.0.1-beta+build.29");
         expect(String(parseVersion("Terra-forge-5.3.3-BETA+ec3b0e5d"))).toBe("5.3.3-BETA+ec3b0e5d");
         expect(String(parseVersion("modmenu-2.0.12"))).toBe("2.0.12");
         expect(String(parseVersion("enhancedblockentities-0.5+1.17"))).toBe("0.5+1.17");
-        expect(String(parseVersion("sync-mc1.17.x-1.2"))).toBe("mc1.17.x-1.2");
+        expect(String(parseVersion("sync-cr1.17.x-1.2"))).toBe("cr1.17.x-1.2");
     });
 });
 

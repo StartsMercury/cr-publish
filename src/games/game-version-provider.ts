@@ -1,6 +1,6 @@
 import { Awaitable } from "@/utils/types";
 import { GameVersion } from "./game-version";
-import { MINECRAFT, MINECRAFT_VERSION_PROVIDER } from "./minecraft";
+import { COSMIC_REACH, COSMIC_REACH_VERSION_PROVIDER } from "./cosmic-reach";
 
 /**
  * Represents a provider for game version.
@@ -20,7 +20,7 @@ export interface GameVersionProvider {
  * A map of game version providers keyed by game name.
  */
 const GAME_VERSION_PROVIDERS: ReadonlyMap<string, GameVersionProvider> = new Map([
-    [MINECRAFT, MINECRAFT_VERSION_PROVIDER],
+    [COSMIC_REACH, COSMIC_REACH_VERSION_PROVIDER],
 ]);
 
 /**
