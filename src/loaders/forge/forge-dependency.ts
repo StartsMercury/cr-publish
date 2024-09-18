@@ -198,9 +198,9 @@ function _getLegacyForgeDependencyCustomPayload(dependency: ForgeDependency): Fo
  *
  * @deprecated
  *
- * Define `mc-publish` property directly on your Forge dependency object instead of using nested `custom.mc-publish`.
+ * Define `cr-publish` property directly on your Forge dependency object instead of using nested `custom.cr-publish`.
  */
 const getLegacyForgeDependencyCustomPayload = deprecate(
     _getLegacyForgeDependencyCustomPayload,
-    "Define `mc-publish` property directly on your Forge dependency object instead of using nested `custom.mc-publish`.",
+    "Define `cr-publish` property directly on your Forge dependency object instead of using nested `custom.cr-publish`.",
 );

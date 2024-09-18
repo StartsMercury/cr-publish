@@ -42,6 +42,7 @@ const PlatformTypeOptions: EnumOptions = {
      * Custom friendly names for keys that don't follow the general naming convention.
      */
     names: [
+        ["CRMM", "CRMM"],
         ["CURSEFORGE", "CurseForge"],
         ["GITHUB", "GitHub"],
     ],

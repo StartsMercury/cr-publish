@@ -72,7 +72,7 @@ describe("FabricMetadata", () => {
         });
 
         test("returns the same value as the 'cosmic-reach' dependency", () => {
-            const metadata = FabricMetadata.from({ recommends: { cosmic-reach: "1.16.5" } } as unknown as RawFabricMetadata);
+            const metadata = FabricMetadata.from({ recommends: { "cosmic-reach": "1.16.5" } } as unknown as RawFabricMetadata);
 
             expect(metadata.gameVersions).toEqual(["1.16.5"]);
         });
