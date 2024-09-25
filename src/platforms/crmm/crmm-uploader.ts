@@ -61,13 +61,14 @@ export class CrmmUploader extends GenericPlatformUploader<CrmmUploaderOptions, C
 
         const project = await this.getProject(request.id, api);
         const version = await this.createVersion(request, project, api);
-        await this.unfeaturePreviousVersions(version, unfeatureMode, api);
+        // await this.unfeaturePreviousVersions(version, unfeatureMode, api);
+        this.unfeaturePreviousVersions(version, unfeatureMode);
 
         return {
             id: project.id,
             version: version.id,
-            url: `https://crmm.tech/${project.project_type}/${project.slug}/version/${version.version_number}`,
-            files: version.files.map(x => ({ id: x.hashes.sha1, name: x.filename, url: x.url })),
+            url: `https://crmm.tech/${project.type}/${project.slug}/version/${version.versionNumber}`,
+            files: version.files.map(x => ({ id: x.sha1_hash, name: x.name, url: x.url })),
         };
     }
 
@@ -96,7 +97,7 @@ export class CrmmUploader extends GenericPlatformUploader<CrmmUploaderOptions, C
             id: idOrSlug,
             slug: idOrSlug,
             project_type: "mod",
-        } as CrmmProject;
+        } as unknown as CrmmProject;
     }
 
     /**
@@ -114,15 +115,15 @@ export class CrmmUploader extends GenericPlatformUploader<CrmmUploaderOptions, C
         const dependencies = await this.convertToCrmmDependencies(request.dependencies, api);
 
         return await api.createVersion({
-            name: request.name,
-            version_number: request.version,
-            project_id: project.id,
+            title: request.name,
+            versionNumber: request.version,
             changelog: request.changelog,
             dependencies,
-            game_versions: gameVersions,
-            version_type: request.versionType,
+            gameVersions,
+            releaseChannel: request.versionType,
             loaders,
             featured: request.featured,
+            primaryFile: request.primaryFile,
             files: request.files,
         });
     }
@@ -138,12 +139,12 @@ export class CrmmUploader extends GenericPlatformUploader<CrmmUploaderOptions, C
     private async convertToCrmmDependencies(dependencies: Dependency[], api: CrmmApiClient): Promise<CrmmDependency[]> {
         const simpleDependencies = this.convertToSimpleDependencies(dependencies, CrmmDependencyType.fromDependencyType);
         const crmmDependencies = await Promise.all(simpleDependencies.map(async ([id, type]) => ({
-            project_id: await api.getProjectId(id).catch(() => undefined as string),
-            dependency_type: type,
-        })));
+            projectId: await api.getProjectId(id).catch(() => undefined as string),
+            dependencyType: type,
+        } as unknown as CrmmDependency)));
         const uniqueCrmmDependencies = crmmDependencies
-            .filter(x => x.project_id && x.dependency_type)
-            .filter((x, i, self) => i === self.findIndex(y => x.project_id === y.project_id));
+            .filter(x => x.projectId && x.dependencyType)
+            .filter((x, i, self) => i === self.findIndex(y => x.projectId === y.projectId));
 
         return uniqueCrmmDependencies;
     }
@@ -172,7 +173,7 @@ export class CrmmUploader extends GenericPlatformUploader<CrmmUploaderOptions, C
             // Therefore, we cannot rely on `project_type` to filter out invalid loaders.
             // So, let's just hope the user, who didn't provide us with a token with
             // all the required permissions, knows what they are doing.
-            .filter(x => x.supported_project_types.includes(project.project_type) || project.id === project.slug)
+            .filter(x => project.id === project.slug || project.type.every(x.supportedProjectTypes.includes))
 
             .map(x => x.name)
             .toArray();
@@ -193,7 +194,7 @@ export class CrmmUploader extends GenericPlatformUploader<CrmmUploaderOptions, C
 
         const crmmGameVersions = await api.getGameVersions();
         return $i(gameVersions)
-            .map(x => crmmGameVersions.find(y => IGNORE_CASE_AND_NON_WORD_CHARACTERS_EQUALITY_COMPARER(x, y.version))?.version)
+            .map(x => crmmGameVersions.find(y => IGNORE_CASE_AND_NON_WORD_CHARACTERS_EQUALITY_COMPARER(x, y.value))?.value)
             .filter(x => x)
             .toArray();
     }
@@ -205,20 +206,22 @@ export class CrmmUploader extends GenericPlatformUploader<CrmmUploaderOptions, C
      * @param unfeatureMode - The mode to determine which versions should be unfeatured.
      * @param api - The API client instance to use for the unfeaturing request.
      */
-    private async unfeaturePreviousVersions(version: CrmmVersion, unfeatureMode: CrmmUnfeatureMode, api: CrmmApiClient): Promise<void> {
+    // private async unfeaturePreviousVersions(version: CrmmVersion, unfeatureMode: CrmmUnfeatureMode, api: CrmmApiClient): Promise<void> {
+    private unfeaturePreviousVersions(version: CrmmVersion, unfeatureMode: CrmmUnfeatureMode): Promise<void> {
         if (unfeatureMode === CrmmUnfeatureMode.NONE) {
             return;
         }
 
-        this._logger.info("🔽 Initiating unfeaturing of older CRMM project versions");
-        const result = await api.unfeaturePreviousProjectVersions(version, unfeatureMode);
-        const unfeaturedVersions = Object.entries(result).filter(([, success]) => success).map(([version]) => version);
-        const nonUnfeaturedVersions = Object.entries(result).filter(([, success]) => !success).map(([version]) => version);
-        if (unfeaturedVersions.length) {
-            this._logger.info(`🟢 Successfully unfeatured ${unfeaturedVersions.join(", ")}`);
-        }
-        if (nonUnfeaturedVersions.length) {
-            this._logger.info(`⚠️ Failed to unfeature ${nonUnfeaturedVersions.join(", ")}. Please, double-check your token`);
-        }
+        this._logger.info("⚠️ Unfeaturing is currently not possible.");
+        // this._logger.info("🔽 Initiating unfeaturing of older CRMM project versions");
+        // const result = await api.unfeaturePreviousProjectVersions(version, unfeatureMode);
+        // const unfeaturedVersions = Object.entries(result).filter(([, success]) => success).map(([version]) => version);
+        // const nonUnfeaturedVersions = Object.entries(result).filter(([, success]) => !success).map(([version]) => version);
+        // if (unfeaturedVersions.length) {
+        //     this._logger.info(`🟢 Successfully unfeatured ${unfeaturedVersions.join(", ")}`);
+        // }
+        // if (nonUnfeaturedVersions.length) {
+        //     this._logger.info(`⚠️ Failed to unfeature ${nonUnfeaturedVersions.join(", ")}. Please, double-check your token`);
+        // }
     }
 }

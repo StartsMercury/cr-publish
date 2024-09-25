@@ -14,48 +14,27 @@ export interface CrmmVersion {
     /**
      * The display name of the version.
      */
-    name: string;
-
-    /**
-     * The project ID associated with this version.
-     */
-    project_id: string;
-
-    /**
-     * The author ID associated with this version.
-     */
-    author_id: string;
+    title: string;
 
     /**
      * The version number of the project.
      */
-    version_number: string;
+    versionNumber: string;
 
     /**
      * A textual description of the changes introduced in this version.
      */
-    changelog: string;
+    changelog: string | null;
 
     /**
-     * An array of dependencies for this version, including version ID, project ID,
-     * file name, and the type of dependency (e.g., required, optional).
+     * A URL-friendly string that represents the version.
      */
-    dependencies: CrmmDependency[];
+    slug: string;
 
     /**
-     * An array of supported game versions for this project version.
+     * The date when this version was published.
      */
-    game_versions: string[];
-
-    /**
-     * The type of the version (e.g., release, beta, alpha).
-     */
-    version_type: VersionType;
-
-    /**
-     * An array of supported mod loaders for this project version.
-     */
-    loaders: string[];
+    datePublished: string;
 
     /**
      * Indicates if this version is featured or not.
@@ -63,74 +42,115 @@ export interface CrmmVersion {
     featured: boolean;
 
     /**
-     * The status of the version (e.g., listed, unlisted).
-     */
-    status: "listed" | "archived" | "draft" | "unlisted" | "scheduled" | "unknown";
-
-    /**
-     * The requested status of the version (e.g., listed, unlisted).
-     */
-    requested_status: "listed" | "archived" | "draft" | "unlisted";
-
-    /**
-     * The date when this version was published.
-     */
-    date_published: string;
-
-    /**
      * The number of downloads for this version.
      */
     downloads: number;
 
     /**
-     * The URL of the changelog, if any.
+     * The type of the version (e.g., release, beta, alpha).
      */
-    changelog_url?: string;
+    releaseChannel: VersionType;
+
+    /**
+     * An array of supported game versions for this project version.
+     */
+    gameVersions: string[];
+
+    /**
+     * An array of supported mod loaders for this project version.
+     */
+    loaders: string[];
 
     /**
      * An array of files associated with this version.
      */
-    files: {
-        /**
-         * The file hashes.
-         */
-        hashes: {
-            /**
-             * SHA-512 hash of the file.
-             */
-            sha512: string;
+    files: CrmmVersionFile[];
 
-            /**
-             * SHA-1 hash of the file.
-             */
-            sha1: string;
-        };
+    /**
+     * The primary file associated with this version.
+     */
+    primaryFile: CrmmVersionFile;
 
+    /**
+     * The author associated with this version.
+     */
+    author: {
         /**
-         * The URL of the file.
+         * The ID of the version author.
          */
-        url: string;
+        id: string;
 
         /**
-         * The file name.
+         * The username of the version author.
          */
-        filename: string;
+        userName: string;
 
         /**
-         * Indicates if this file is the primary file for this version.
+         * The name of the version author.
          */
-        primary: boolean;
+        name: string;
 
         /**
-         * The size of the file in bytes.
+         * The avatar URL of the version author.
          */
-        size: number;
+        avatarUrl: string | null;
 
         /**
-         * The type of the file (e.g., required-resource-pack).
+         * The role of the version author.
          */
-        file_type: "required-resource-pack" | "optional-resource-pack";
-    }[];
+        role: string;
+    };
+
+    /**
+     * An array of dependencies for this version, including version ID, project ID,
+     * file name, and the type of dependency (e.g., required, optional).
+     */
+    dependencies: CrmmDependency[];
+}
+
+/**
+ * Represents a CRMM project version file.
+ */
+export interface CrmmVersionFile {
+    /**
+     * The unique identifier of a version file.
+     */
+    id: string;
+
+    /**
+     * Is this the primary version file.
+     */
+    isPrimary: boolean;
+
+    /**
+     * The displayed name of the version file.
+     */
+    name: string;
+
+    /**
+     * The URL of the version file.
+     */
+    url: string;
+
+    /**
+     * The size of the file in bytes.
+     */
+    size: number;
+
+    /**
+     * The type of version file.
+     */
+    type: string;
+
+    /**
+     * SHA-1 hash of the file.
+     */
+    sha1_hash: string | null;
+
+    /**
+     * SHA-512 hash of the file.
+     */
+    sha512_hash: string | null;
 }
 
 /**
@@ -140,44 +160,19 @@ export interface CrmmVersionInit {
     /**
      * The name of this version.
      */
-    name: string;
-
-    /**
-     * The version number. Ideally will follow semantic versioning.
-     */
-    version_number: string;
-
-    /**
-     * The ID of the project this version is for.
-     */
-    project_id: string;
+    title: string;
 
     /**
      * The changelog for this version.
      */
-    changelog?: string;
-
-    /**
-     * A list of specific versions of projects that this version depends on.
-     */
-    dependencies?: CrmmDependency[];
-
-    /**
-     * A list of versions of Cosmic Reach that this version supports.
-     */
-    game_versions?: string[];
+    changelog: string | null;
 
     /**
      * The release channel for this version.
      *
      * Defaults to `"release"`.
      */
-    version_type?: VersionType;
-
-    /**
-     * The mod loaders that this version supports.
-     */
-    loaders?: string[];
+    releaseChannel?: VersionType;
 
     /**
      * Whether the version is featured or not.
@@ -185,6 +180,26 @@ export interface CrmmVersionInit {
      * Defaults to `true`.
      */
     featured?: boolean;
+
+    /**
+     * The version number. Ideally will follow semantic versioning.
+     */
+    versionNumber: string;
+
+    /**
+     * The mod loaders that this version supports.
+     */
+    loaders?: string[];
+
+    /**
+     * A list of versions of Cosmic Reach that this version supports.
+     */
+    gameVersions?: string[];
+
+    /**
+     * A list of specific versions of projects that this version depends on.
+     */
+    dependencies?: CrmmDependency[];
 
     /**
      * The status of the version.
@@ -195,6 +210,11 @@ export interface CrmmVersionInit {
      * The requested status of the version.
      */
     requested_status?: "listed" | "archived" | "draft" | "unlisted";
+
+    /**
+     * The primary file that should be attached to the version.
+     */
+    primaryFile: FileInfo | string;
 
     /**
      * A list of files that should be attached to the version.
@@ -241,19 +261,9 @@ type CrmmVersionInitForm = {
  */
 export interface CrmmVersionPatch {
     /**
-     * The ID of this version.
-     */
-    id: string;
-
-    /**
      * The name of this version.
      */
-    name?: string;
-
-    /**
-     * The version number. Ideally will follow semantic versioning.
-     */
-    version_number?: string;
+    title: string;
 
     /**
      * The changelog for this version.
@@ -261,24 +271,9 @@ export interface CrmmVersionPatch {
     changelog?: string;
 
     /**
-     * A list of specific versions of projects that this version depends on.
-     */
-    dependencies?: CrmmDependency[];
-
-    /**
-     * A list of versions of Cosmic Reach that this version supports.
-     */
-    game_versions?: string[];
-
-    /**
      * The release channel for this version.
      */
-    version_type?: VersionType;
-
-    /**
-     * The mod loaders that this version supports.
-     */
-    loaders?: string[];
+    releaseChannel?: VersionType;
 
     /**
      * Whether the version is featured or not.
@@ -286,39 +281,29 @@ export interface CrmmVersionPatch {
     featured?: boolean;
 
     /**
-     * The status of this version.
+     * The version number. Ideally will follow semantic versioning.
      */
-    status?: "listed" | "archived" | "draft" | "unlisted" | "scheduled" | "unknown";
+    versionNumber?: string;
 
     /**
-     * The requested status of this version.
+     * The mod loaders that this version supports.
      */
-    requested_status?: "listed" | "archived" | "draft" | "unlisted";
+    loaders?: string[];
+
+    /**
+     * A list of versions of Cosmic Reach that this version supports.
+     */
+    gameVersions?: string[];
+
+    /**
+     * A list of specific versions of projects that this version depends on.
+     */
+    dependencies?: CrmmDependency[];
 
     /**
      * The hash format and the hash of the new primary file.
      */
-    primary_file?: ["sha1" | "sha512", string];
-
-    /**
-     * The types of the files of this version.
-     */
-    file_types?: {
-        /**
-         * The hash algorithm of the hash specified in the hash field.
-         */
-        algorithm: "sha1" | "sha512";
-
-        /**
-         * The hash of the file you're editing.
-         */
-        hash: string;
-
-        /**
-         * The file type of the file you're editing, or null if not provided.
-         */
-        file_type: "required-resource-pack" | "optional-resource-pack" | null;
-    };
+    additionalFiles?: FileInfo[];
 }
 
 /**
@@ -331,19 +316,14 @@ export interface UnfeaturableCrmmVersion {
     id?: string;
 
     /**
-     * The project ID associated with this version.
-     */
-    project_id: string;
-
-    /**
      * A list of versions of Cosmic Reach that this version supports.
      */
-    game_versions?: string[];
+    gameVersions?: string[];
 
     /**
      * The release channel for this version.
      */
-    version_type?: VersionType;
+    type?: VersionType;
 
     /**
      * The mod loaders that this version supports.
@@ -415,11 +395,11 @@ export function packCrmmVersionInit(version: CrmmVersionInit): CrmmVersionInitFo
         ...{ ...version, files: undefined },
 
         // Default values
-        name: version.name || version.version_number || files[0] && FileInfo.of(files[0]).name,
-        version_type: version.version_type ?? VersionType.RELEASE,
+        title: version.title || version.versionNumber || files[0] && FileInfo.of(files[0]).name,
+        releaseChannel: version.releaseChannel ?? VersionType.RELEASE,
         featured: version.featured ?? true,
         dependencies: version.dependencies ?? [],
-        game_versions: version.game_versions ?? [],
+        gameVersions: version.gameVersions ?? [],
         loaders: version.loaders ?? [],
 
         // Names of each file part

@@ -3,21 +3,19 @@
  */
 export interface CrmmGameVersion {
     /**
-     * The name/number of the game version.
+     * The name of the game version.
      */
-    version: string;
+    label: string;
+
+    /**
+     * The number of the game version.
+     */
+    value: string;
 
     /**
      * The type of the game version.
      */
-    version_type: "release" | "snapshot" | "alpha" | "beta";
-
-    /**
-     * The date of the game version release.
-     *
-     * @remarks The date should be in the ISO-8601 format.
-     */
-    date: string;
+    releaseType: "release" | "snapshot" | "beta" | "alpha" | "pre-alpha";
 
     /**
      * Whether or not this is a major version, used for Featured Versions.

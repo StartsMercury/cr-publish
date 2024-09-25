@@ -1,10 +1,9 @@
 import { Fetch, HttpRequest, HttpResponse, createFetch, defaultResponse, simpleCache, throwOnError } from "@/utils/net";
-import { asArray } from "@/utils/collections";
 import { CrmmProject, CrmmProjectPatch } from "./crmm-project";
-import { CrmmVersion, CrmmVersionInit, CrmmVersionPatch, CrmmVersionSearchTemplate, UnfeaturableCrmmVersion, packCrmmVersionInit, packCrmmVersionSearchTemplate } from "./crmm-version";
-import { CrmmUnfeatureMode } from "./crmm-unfeature-mode";
+import { CrmmVersion, CrmmVersionInit, CrmmVersionPatch, CrmmVersionSearchTemplate, packCrmmVersionInit, packCrmmVersionSearchTemplate } from "./crmm-version";
 import { CrmmLoader } from "./crmm-loader";
 import { CrmmGameVersion } from "./crmm-game-version";
+import { map } from "@/utils/collections/iterable";
 
 /**
  * The API version used for making requests to the CRMM API.
@@ -76,8 +75,8 @@ export class CrmmApiClient {
      * @returns An array of loaders supported by CRMM.
      */
     async getLoaders(): Promise<CrmmLoader[]> {
-        const response = await this._fetch("/tag/loader?cache=true");
-        return (await response.json()) ?? [];
+        const response = await this._fetch("/tag/loaders?cache=true");
+        return (await response.json() as { loaders: CrmmLoader[] })?.loaders ?? [];
     }
 
     /**
@@ -86,7 +85,7 @@ export class CrmmApiClient {
      * @returns An array of game versions supported by CRMM.
      */
     async getGameVersions(): Promise<CrmmGameVersion[]> {
-        const response = await this._fetch("/tag/game_version?cache=true");
+        const response = await this._fetch("/tag/game-versions?cache=true");
         return (await response.json()) ?? [];
     }
 
@@ -99,7 +98,7 @@ export class CrmmApiClient {
      */
     async getProject(idOrSlug: string): Promise<CrmmProject | undefined> {
         const response = await this._fetch(`/project/${idOrSlug}`);
-        return (await response.json()) ?? undefined;
+        return (await response.json() as { project: CrmmProject | undefined })?.project ?? undefined;
     }
 
     /**
@@ -122,8 +121,13 @@ export class CrmmApiClient {
      * @returns An array of projects.
      */
     async getProjects(idsOrSlugs: Iterable<string>): Promise<CrmmProject[]> {
-        const response = await this._fetch("/projects", HttpRequest.get().with({ ids: JSON.stringify(asArray(idsOrSlugs)) }));
-        return (await response.json()) ?? [];
+        // const response = await this._fetch("/projects", HttpRequest.get().with({ ids: JSON.stringify(asArray(idsOrSlugs)) }));
+        // return (await response.json()) ?? [];
+
+        // Manual implementation
+        return (await Promise.allSettled(map(idsOrSlugs, this.getProject)))
+            ?.map(result => (result as PromiseFulfilledResult<CrmmProject>).value)
+            .filter(it => it);
     }
 
     /**
@@ -134,7 +138,7 @@ export class CrmmApiClient {
      * @returns `true` if the update was successful; otherwise, `false`.
      */
     async updateProject(project: CrmmProjectPatch): Promise<boolean> {
-        const response = await this._fetch(`/project/${project.id}`, HttpRequest.patch().json(project));
+        const response = await this._fetch(`/project/${project.slug}`, HttpRequest.patch().json(project));
         return response.ok;
     }
 
@@ -159,7 +163,7 @@ export class CrmmApiClient {
      */
     async getVersion(id: string): Promise<CrmmVersion | undefined> {
         const response = await this._fetch(`/version/${id}`);
-        return (await response.json()) ?? undefined;
+        return (await response.json() as { data: CrmmVersion | undefined })?.data ?? undefined;
     }
 
     /**
@@ -170,8 +174,13 @@ export class CrmmApiClient {
      * @returns An array of versions.
      */
     async getVersions(ids: Iterable<string>): Promise<CrmmVersion[]> {
-        const response = await this._fetch("/versions", HttpRequest.get().with({ ids: JSON.stringify(asArray(ids)) }));
-        return (await response.json()) ?? [];
+        // const response = await this._fetch("/versions", HttpRequest.get().with({ ids: JSON.stringify(asArray(ids)) }));
+        // return (await response.json() as any)?.data ?? [];
+
+        // Manual implementation
+        return (await Promise.allSettled(map(ids, this.getVersion)))
+            ?.map(result => (result as PromiseFulfilledResult<CrmmVersion>).value)
+            .filter(it => it);
     }
 
     /**
@@ -195,7 +204,7 @@ export class CrmmApiClient {
      * @returns `true` if the update was successful; otherwise, `false`.
      */
     async updateVersion(version: CrmmVersionPatch): Promise<boolean> {
-        const response = await this._fetch(`/version/${version.id}`, HttpRequest.patch().json(version));
+        const response = await this._fetch(`/version/${version.title}`, HttpRequest.patch().json(version));
         return response.ok;
     }
 
@@ -222,7 +231,7 @@ export class CrmmApiClient {
     async getProjectVersions(idOrSlug: string, template?: CrmmVersionSearchTemplate): Promise<CrmmVersion[]> {
         const params = packCrmmVersionSearchTemplate(template);
         const response = await this._fetch(`/project/${idOrSlug}/version`, HttpRequest.get().with(params));
-        return (await response.json()) ?? [];
+        return (await response.json() as { data: CrmmVersion[] })?.data ?? [];
     }
 
     /**
@@ -233,20 +242,20 @@ export class CrmmApiClient {
      *
      * @returns A record containing version IDs as keys and a boolean indicating whether the unfeaturing operation was successful for each version.
      */
-    async unfeaturePreviousProjectVersions(currentVersion: UnfeaturableCrmmVersion, mode?: CrmmUnfeatureMode): Promise<Record<string, boolean>> {
-        mode ??= CrmmUnfeatureMode.SUBSET;
+    // async unfeaturePreviousProjectVersions(currentVersion: UnfeaturableCrmmVersion, mode?: CrmmUnfeatureMode): Promise<Record<string, boolean>> {
+    //     mode ??= CrmmUnfeatureMode.SUBSET;
 
-        const previousVersions = await this.getProjectVersions(currentVersion.project_id, { featured: true });
-        const unfeaturedVersions = { } as Record<string, boolean>;
+    //     const previousVersions = await this.getProjectVersions(currentVersion.projectId, { featured: true });
+    //     const unfeaturedVersions = { } as Record<string, boolean>;
 
-        for (const previousVersion of previousVersions) {
-            if (!CrmmUnfeatureMode.shouldUnfeature(previousVersion, currentVersion, mode)) {
-                continue;
-            }
+    //     for (const previousVersion of previousVersions) {
+    //         if (!CrmmUnfeatureMode.shouldUnfeature(previousVersion, currentVersion, mode)) {
+    //             continue;
+    //         }
 
-            unfeaturedVersions[previousVersion.id] = await this.updateVersion({ id: previousVersion.id, featured: false });
-        }
+    //         unfeaturedVersions[previousVersion.id] = await this.updateVersion({ id: previousVersion.id, featured: false });
+    //     }
 
-        return unfeaturedVersions;
-    }
+    //     return unfeaturedVersions;
+    // }
 }

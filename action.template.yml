@@ -81,6 +81,9 @@ inputs:
     type: utils.security.SecureString
     description: Your GitHub API token.
 
+  primary-file:
+    type: utils.io.FileInfo
+    description: A glob determining the primary files to upload.
   files:
     type: utils.io.FileInfo[]:{findFiles}?processSeparately=false
     description: An array of globs determining which files to upload.

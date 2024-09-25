@@ -75,6 +75,10 @@ inputs:
     description: Your GitHub API token.
     required: false
     default: ${undefined}
+  primary-file:
+    description: A glob determining the primary files to upload.
+    required: false
+    default: ${undefined}
   files:
     description: An array of globs determining which files to upload.
     default: |
@@ -149,6 +153,18 @@ inputs:
       publishing process.
     default: fail
     required: false
+  crmm-primary-file:
+    description: A glob determining the primary files to upload.
+    required: false
+    default: ${undefined}
+  curseforge-primary-file:
+    description: A glob determining the primary files to upload.
+    required: false
+    default: ${undefined}
+  github-primary-file:
+    description: A glob determining the primary files to upload.
+    required: false
+    default: ${undefined}
   crmm-files:
     description: An array of globs determining which files to upload.
     default: ${undefined}

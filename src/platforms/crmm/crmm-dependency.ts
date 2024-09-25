@@ -7,20 +7,20 @@ export interface CrmmDependency {
     /**
      * The version id of the dependency.
      */
-    version_id?: string;
+    id: string;
 
     /**
      * The project id of the dependency.
      */
-    project_id?: string;
+    projectId: string;
 
     /**
-     * The file name of the dependency.
+     * The version id of the dependency.
      */
-    file_name?: string;
+    versionId: string;
 
     /**
      * The type of dependency (e.g., required, optional).
      */
-    dependency_type: CrmmDependencyType;
+    dependencyType: CrmmDependencyType;
 }

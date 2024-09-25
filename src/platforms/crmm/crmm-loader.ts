@@ -3,11 +3,6 @@
  */
 export interface CrmmLoader {
     /**
-     * The SVG icon of the loader.
-     */
-    icon: string;
-
-    /**
      * The name of the loader.
      */
     name: string;
@@ -15,5 +10,20 @@ export interface CrmmLoader {
     /**
      * The project types that this loader is applicable to.
      */
-    supported_project_types: string[];
+    supportedProjectTypes: string[];
+
+    /**
+     * The project metadata.
+     */
+    metadata: {
+        visibleInTagsList: boolean;
+        visibleInLoadersList: boolean;
+        isAFilter: boolean;
+        accent?: {
+            foreground: {
+                light: string;
+                dark: string;
+            };
+        };
+    };
 }

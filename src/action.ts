@@ -53,6 +53,11 @@ export interface McPublishInput {
         token?: SecureString;
 
         /**
+         * A glob determining the primary files to upload.
+         */
+        primaryFile?: FileInfo;
+
+        /**
          * An array of globs determining which files to upload.
          */
         files?: FileInfo[];
@@ -131,6 +136,11 @@ export interface McPublishInput {
          * Your CurseForge API token.
          */
         token?: SecureString;
+
+        /**
+         * A glob determining the primary files to upload.
+         */
+        primaryFile?: FileInfo;
 
         /**
          * An array of globs determining which files to upload.
@@ -238,6 +248,11 @@ export interface McPublishInput {
         token?: SecureString;
 
         /**
+         * A glob determining the primary files to upload.
+         */
+        primaryFile?: FileInfo;
+
+        /**
          * An array of globs determining which files to upload.
          */
         files?: FileInfo[];
@@ -302,6 +317,11 @@ export interface McPublishInput {
          */
         failMode?: FailMode;
     };
+
+    /**
+     * A glob determining the primary files to upload.
+     */
+    primaryFile?: FileInfo;
 
     /**
      * An array of globs determining which files to upload.

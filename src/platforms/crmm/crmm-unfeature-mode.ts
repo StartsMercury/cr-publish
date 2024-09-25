@@ -255,8 +255,8 @@ function shouldUnfeature(previous: UnfeaturableCrmmVersion, current: Unfeaturabl
     const loaderMode = getLoaderMode(mode);
 
     return (
-        satisfies(previous.game_versions || [], current.game_versions || [], gameVersionMode) &&
-        satisfies(previous.version_type || VersionType.RELEASE, current.version_type || VersionType.RELEASE, versionTypeMode) &&
+        satisfies(previous.gameVersions || [], current.gameVersions || [], gameVersionMode) &&
+        satisfies(previous.type || VersionType.RELEASE, current.type || VersionType.RELEASE, versionTypeMode) &&
         satisfies(previous.loaders || [], current.loaders || [], loaderMode)
     );
 }
